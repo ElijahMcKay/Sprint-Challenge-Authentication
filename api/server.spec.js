@@ -11,8 +11,8 @@ describe('server.js', () => {
     }
 
     const newCreds = {
-        username: 'gracie', 
-        password: 'gracie',
+        username: 'timmy', 
+        password: 'timmy',
     }
 
     describe(' login route ', () => {
@@ -21,7 +21,6 @@ describe('server.js', () => {
                 .send(creds)
                 .expect(201)
         })
-        it('should ')
     })
 
     describe('register route', () => {
@@ -29,6 +28,15 @@ describe('server.js', () => {
             return request(server).post('/api/auth/register')
                 .send(newCreds)
                 .expect(201) 
+        })
+    })
+
+    describe('jokes route', () => {
+        it('should return jokes', () => {
+            return request(server).get('/api/jokes')
+                .then(res => {
+                    expect(res.body);
+                })
         })
     })
 })
