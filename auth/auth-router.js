@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const authenticate = require('./authenticate-middleware'); 
+const jwt = require('jsonwebtoken'); 
+const secrets = require('../config/secrets'); 
 
 //model imports
 const Users = require('./auth-model'); 
@@ -12,7 +14,7 @@ router.post('/register', (req, res) => {
   const body = req.body; 
 
   // hashing password
-  const hash = hashSync(body.password, 12); 
+  const hash = bcrypt.hashSync(body.password, 12); 
   body.password = hash; 
 
   Users.addUser(body)
@@ -24,13 +26,15 @@ router.post('/register', (req, res) => {
     })
 });
 
-router.post('/login',/* authenticate, */(req, res) => {
+router.post('/login', authenticate, (req, res) => {
   // implement login
   const { username, password } = req.body; 
 
+  // generating JWT when middleware authenticates user 
   const token = generateToken(req.body); 
 
-  res.status(201).json({ message: `Welcome back, ${user.username}!`, token}); 
+  // sending json web token and Welcome message
+  res.status(201).json({ message: `Welcome back, ${username}!`, token}); 
 
   // Users.findUser({ username })
   //   .first()

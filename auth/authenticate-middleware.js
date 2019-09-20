@@ -7,10 +7,13 @@ const bcrypt = require('bcryptjs');
 const Users = require('./auth-model'); 
 
 module.exports = function restricted(req, res, next) { 
+
+  const { username, password } = req.body; 
       
-  Users.findBy({ username })
+  Users.findUser(username)
     .first()
     .then(user => {
+        console.log('test'); 
         if(user && bcrypt.compareSync(password, user.password)) { 
             next(); 
         } else {
