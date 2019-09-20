@@ -11,8 +11,8 @@ describe('server.js', () => {
     }
 
     const newCreds = {
-        username: 'timmy', 
-        password: 'timmy',
+        username: `${Date.now()}`, 
+        password: `${Date.now()}`,
     }
 
     describe(' login route ', () => {
@@ -37,6 +37,10 @@ describe('server.js', () => {
                 .then(res => {
                     expect(res.body);
                 })
+        })
+        it('should 500', () => {
+            return request(server).get('/joke')
+                .expect(404)
         })
     })
 })
