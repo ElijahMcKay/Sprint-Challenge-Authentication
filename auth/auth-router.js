@@ -28,9 +28,9 @@ router.post('/login',/* authenticate, */(req, res) => {
   // implement login
   const { username, password } = req.body; 
 
-  generateToken(req.body); 
+  const token = generateToken(req.body); 
 
-  res.status(201).json({ message: `Welcome back, ${user.username}!`, token});
+  res.status(201).json({ message: `Welcome back, ${user.username}!`, token}); 
 
   // Users.findUser({ username })
   //   .first()
