@@ -4,8 +4,13 @@
   "description": "Authentication Sprint Challenge",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "test": "jest --watch"
   },
+  "jest": {
+    "testEnvironment": "node"
+  }
+  ,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LambdaSchool/Sprint-Challenge-Authentication.git"
