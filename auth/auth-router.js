@@ -26,29 +26,25 @@ router.post('/register', (req, res) => {
     })
 });
 
-router.post('/login', authenticate, (req, res) => {
+router.post('/login', (req, res) => {
   // implement login
   const { username, password } = req.body; 
-
-  // generating JWT when middleware authenticates user 
-  const token = generateToken(req.body); 
-
-  // sending json web token and Welcome message
-  res.status(201).json({ message: `Welcome back, ${username}!`, token}); 
-
-  // Users.findUser({ username })
-  //   .first()
-  //   .then(user => {
-  //     generateToken
-  //     res.status(201).json({ message: `Welcome back, ${user.username}!`, token}); 
-  //   })
-  //   .catch(err => {
-  //     res.status(500).json(err);  
-  //   })
+  console.log(username) ;
+  Users.findUser({ username })
+    .first()
+    .then(user => {
+      console.log(user); 
+      const token = generateToken(user); 
+      res.status(201).json({ message: `Welcome back, ${user.username}!`, token}); 
+    })
+    .catch(err => {
+      res.status(500).json(`${err}`);  
+    })
 });
 
 // creating function to generate JWT for frontend auth
 function generateToken(user) {
+  console.log(user.id); 
   const payload = {
     subject: user.id,
     username: user.username

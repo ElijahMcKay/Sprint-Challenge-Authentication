@@ -12,8 +12,6 @@ function addUser(user){
 }
 
 function findUser(username){
-    console.log('test'); 
-    const user = db('users').where({ username }); 
-    console.log({ username }); 
-    return user; 
+    console.log(username); 
+    return db('users').where(username); 
 }
